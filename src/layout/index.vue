@@ -10,7 +10,6 @@
         </el-header>
         <el-main>
           <Main></Main>
-          <router-view/>
         </el-main>
       </el-container>
     </el-container>
@@ -39,22 +38,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-container{
+.el-container {
   height: 100%;
 }
 .el-header {
+  width: 100%;
   background-color: #18bc9c;
   color: #333;
   line-height: 60px;
+  position: fixed;
+  left: 200px;
+  top: 0;
+  z-index: 100;
 }
 
 .el-aside {
   // background-color: $aside-bg-color;
   color: #333;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
 }
 
 .el-main {
   background-color: #e8edf0;
   color: #333;
+  position: relative;
+  left: 200px;
+  top: 60px;
 }
 </style>

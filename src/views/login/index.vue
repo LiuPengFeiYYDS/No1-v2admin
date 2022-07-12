@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import UserApi from '../../api/user.js'
+import { getCaptcha } from '../../api/user.js'
 import rules from './rules'
 import { mapActions } from 'vuex'
 export default {
@@ -72,7 +72,7 @@ export default {
      * 调用接口获取验证码
      */
     async handleGetCaptcha() {
-      const res = await UserApi.getCaptcha()
+      const res = await getCaptcha()
       console.log(res)
       this.codeImageUrl = res.captchaImg
       this.loginForm.token = res.token

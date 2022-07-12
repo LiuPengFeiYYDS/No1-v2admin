@@ -1,6 +1,10 @@
 <template>
   <div class="main">
-    <h1>111</h1>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/">用户管理</a></el-breadcrumb-item>
+    </el-breadcrumb>
+    <router-view />
   </div>
 </template>
 
@@ -19,8 +23,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main{
+.main {
   height: 100vh;
   padding: 15px;
+  background-color: #fff;
+}
+.el-breadcrumb{
+  margin-bottom: 20px;
 }
 </style>

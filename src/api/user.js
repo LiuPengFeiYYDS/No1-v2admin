@@ -4,7 +4,7 @@ import request from '@/utils/request'
  * 获取验证码接口
  * @returns {AxiosPromise}
  */
-const getCaptcha = () => {
+export const getCaptcha = () => {
   return request({
     url: '/sys/captcha',
     method: 'get'
@@ -13,7 +13,7 @@ const getCaptcha = () => {
 /**
  * 获取登录的接口
  */
-const login = (data) => {
+export const login = (data) => {
   return request({
     url:
       '/sys/login?username=' +
@@ -27,8 +27,14 @@ const login = (data) => {
     method: 'post'
   })
 }
+export const getNav = () => {
+  return request({ url: '/sys/menu/nav', method: 'get' })
+}
+export const getInfo = () => {
+  return request({ url: '/sys/user/info', method: 'get' })
+}
 
 /**
  * 导出api接口
  */
-export default { getCaptcha, login }
+// export default { getCaptcha, login, getNav }

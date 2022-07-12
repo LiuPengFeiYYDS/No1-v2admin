@@ -12,7 +12,29 @@ const routes = [
   {
     path: '/',
     name: 'layout',
-    component: () => import('../layout')
+    component: () => import('../layout'),
+    children: [
+      {
+        path: '/sys/users',
+        name: 'users',
+        component: () => import('../views/users')
+      },
+      {
+        path: '/sys/roles',
+        name: 'roles',
+        component: () => import('../views/roles')
+      },
+      {
+        path: '/sys/menus',
+        name: 'menus',
+        component: () => import('../views/menus')
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('../views/home')
+      }
+    ]
   }
 ]
 

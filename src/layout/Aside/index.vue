@@ -1,52 +1,54 @@
 <template>
   <div class="aside">
     <el-menu
-      default-active="2"
+      :default-active="navList.path"
       background-color="#222d32"
       text-color="#fff"
       active-text-color="#ffd04b"
+      router
     >
+      <el-menu-item index="/home" :collapse="isCollapse">
+        <i :class="'el-icon-' + navList.icon"></i>
+        <span slot="title">{{ navList.label }}</span>
+      </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <i :class="'el-icon-' + getNavList.icon"></i>
+          <span>{{ getNavList.label }}</span>
         </template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
+        <el-menu-item-group
+          v-for="(item, index) in getNavList.children"
+          :key="index"
+        >
+          <el-menu-item :index="item.path">
+            <i :class="'el-icon-' + item.icon"></i>
+            {{ item.label }}</el-menu-item
+          >
         </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
+import { getNav } from '../../api/user'
 export default {
   data() {
-    return {}
+    return {
+      getNavList: {},
+      navList: {},
+      isCollapse: true
+    }
   },
   methods: {},
-  created() {},
+  created() {
+    getNav().then((res) => {
+      console.log(res)
+      this.navList = res.menus[0]
+      this.getNavList = res.menus[1]
+      console.log(this.getNavList)
+    })
+  },
   mounted() {},
   components: {},
   computed: {},
@@ -58,5 +60,8 @@ export default {
 .el-menu {
   height: 100vh;
   background: #001529;
+}
+.aside {
+  overflow: auto;
 }
 </style>
