@@ -24,8 +24,8 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  height: 100vh;
-  padding: 15px;
+  height: 100%;
+  padding: 25px;
   background-color: #fff;
 }
 .el-breadcrumb{

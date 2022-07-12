@@ -73,7 +73,7 @@ export default {
      */
     async handleGetCaptcha() {
       const res = await getCaptcha()
-      console.log(res)
+      // console.log(res)
       this.codeImageUrl = res.captchaImg
       this.loginForm.token = res.token
     },

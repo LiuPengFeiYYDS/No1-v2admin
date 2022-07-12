@@ -13,7 +13,8 @@ module.exports = {
     'space-before-function-paren': 'off',
     'vue/multi-word-component-names': 'off',
     'vue/no-deprecated-slot-attribute': 'off',
-    'vue/no-deprecated-v-on-native-modifier': 'off'
+    'vue/no-deprecated-v-on-native-modifier': 'off',
+    'vue/no-deprecated-slot-scope-attribute': 'off'
   },
   overrides: [
     {

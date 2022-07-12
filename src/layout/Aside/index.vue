@@ -43,10 +43,10 @@ export default {
   methods: {},
   created() {
     getNav().then((res) => {
-      console.log(res)
+      // console.log(res)
       this.navList = res.menus[0]
       this.getNavList = res.menus[1]
-      console.log(this.getNavList)
+      // console.log(this.getNavList)
     })
   },
   mounted() {},

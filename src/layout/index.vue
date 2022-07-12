@@ -65,7 +65,9 @@ export default {
   background-color: #e8edf0;
   color: #333;
   position: relative;
+  width: 86.8%;
   left: 200px;
   top: 60px;
+  // overflow: hidden;
 }
 </style>

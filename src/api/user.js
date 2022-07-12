@@ -27,11 +27,25 @@ export const login = (data) => {
     method: 'post'
   })
 }
+/**
+ *获取菜单栏数据
+ */
 export const getNav = () => {
   return request({ url: '/sys/menu/nav', method: 'get' })
 }
+/**
+ * 获取信息数据
+ * @returns
+ */
 export const getInfo = () => {
   return request({ url: '/sys/user/info', method: 'get' })
+}
+/**
+ * 获取用户列表
+ * @returns
+ */
+export const getList = () => {
+  return request({ url: '/sys/user/list', method: 'get' })
 }
 
 /**
