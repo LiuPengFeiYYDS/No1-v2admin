@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div>
     <el-container>
       <el-aside width="200px">
         <Aside></Aside>
@@ -15,59 +15,44 @@
     </el-container>
   </div>
 </template>
-
 <script>
 import Aside from './Aside'
 import Header from './Header'
 import Main from './Main'
 export default {
+  components: {
+    Aside,
+    Header,
+    Main
+  },
   data() {
     return {}
   },
-  methods: {},
-  created() {},
-  mounted() {},
-  components: {
-    Aside,
-    Main,
-    Header
-  },
-  computed: {},
-  watch: {}
+  methods: {}, //  事件方法
+  created() {}, //  页面加载时调用
+  mounted() {} //  页面加载后操作DOM节点
 }
 </script>
-
 <style lang="scss" scoped>
 .el-container {
-  height: 100%;
-}
-.el-header {
-  width: 100%;
-  background-color: #18bc9c;
-  color: #333;
-  line-height: 60px;
-  position: fixed;
-  left: 200px;
-  top: 0;
-  z-index: 100;
-}
-
-.el-aside {
-  // background-color: $aside-bg-color;
-  color: #333;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 100;
 }
-
+.el-header {
+  position: fixed;
+  width: 100%;
+  left: 200px;
+  top: 0;
+  background-color: #18bc9c;
+}
 .el-main {
+  position: fixed;
   background-color: #e8edf0;
-  color: #333;
-  position: relative;
-  width: 86.8%;
+  padding: 30px;
   left: 200px;
   top: 60px;
-  // overflow: hidden;
+  width: 87.6%;
+  height: 100%;
 }
 </style>

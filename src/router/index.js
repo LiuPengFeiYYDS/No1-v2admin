@@ -32,6 +32,7 @@ const routes = [
       {
         path: '/home',
         name: 'home',
+        redirect: '/home',
         component: () => import('../views/home')
       }
     ]
