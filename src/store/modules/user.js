@@ -1,26 +1,39 @@
-/**
- * @author YangLing
- * @date 2022/7/11 14:13
- */
-import { login } from '@/api/user'
-import { setItem, getItem } from '@/utils/storage'
-
+import { getUserInfo, login, getNavList } from '@/api/user'
+import storage from '@/utils/storage'
 export default {
   namespaced: true,
   state: {
-    token: getItem('token') || ''
+    token: storage.getItem('token') || '',
+    userInfo: '',
+    navList: ''
   },
   mutations: {
-    setToken(state, token) {
-      state.token = token
-      setItem('token', token)
+    SET_TOKEN(state, res) {
+      state.token = res
+      storage.setItem('token', res)
+    },
+    SET_USER_INFO(state, res) {
+      state.userInfo = res
+    },
+    SET_NAV_LIST(state, res) {
+      state.navList = res
     }
   },
   actions: {
-    async login({ commit }, loginForm) {
-      const token = await login(loginForm)
-      commit('setToken', token)
-      return token
+    async handleLogin({ commit }, data) {
+      const res = await login(data)
+      commit('SET_TOKEN', res)
+      return res
+    },
+    async getUserInfo({ commit }) {
+      const res = await getUserInfo()
+      commit('SET_USER_INFO', res)
+      return res
+    },
+    async getNav({ commit }) {
+      const res = await getNavList()
+      commit('SET_NAV_LIST', res)
+      return res
     }
   }
 }

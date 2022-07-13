@@ -1,58 +1,67 @@
 <template>
-  <div>
+  <div class="layout">
     <el-container>
       <el-aside width="200px">
-        <Aside></Aside>
+        <AppSidebar></AppSidebar>
       </el-aside>
       <el-container>
         <el-header>
-          <Header></Header>
+          <AppHeader></AppHeader>
         </el-header>
         <el-main>
-          <Main></Main>
+          <AppMain></AppMain>
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
+
 <script>
-import Aside from './Aside'
-import Header from './Header'
-import Main from './Main'
 export default {
   components: {
-    Aside,
-    Header,
-    Main
+    AppHeader: () => import('./header'),
+    AppSidebar: () => import('./sidebar'),
+    AppMain: () => import('./main')
   },
+  // 定义属性
   data() {
     return {}
   },
-  methods: {}, //  事件方法
-  created() {}, //  页面加载时调用
-  mounted() {} //  页面加载后操作DOM节点
+  // 计算属性，会监听依赖属性值随之变化
+  computed: {},
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
+  methods: {},
+  // 生命周期 - 创建完成（可以访问当前this实例）
+  created() {},
+  // 生命周期 - 挂载完成（可以访问DOM元素）
+  mounted() {},
+  // 生命周期 - 创建之前
+  beforeCreate() {},
+  // 生命周期 - 挂载之前
+  beforeMount() {},
+  // 生命周期 - 更新之前
+  beforeUpdate() {},
+  // 生命周期 - 更新之后
+  updated() {},
+  // 生命周期 - 销毁之前
+  beforeDestroy() {},
+  // 生命周期 - 销毁完成
+  destroyed() {},
+  // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}
 }
 </script>
+
 <style lang="scss" scoped>
-.el-container {
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-.el-header {
-  position: fixed;
-  width: 100%;
-  left: 200px;
-  top: 0;
-  background-color: #18bc9c;
-}
-.el-main {
-  position: fixed;
-  background-color: #e8edf0;
-  padding: 30px;
-  left: 200px;
-  top: 60px;
-  width: 87.6%;
+.layout {
   height: 100%;
+  .el-container {
+    height: 100%;
+    .el-header {
+      background: #18bc9c;
+    }
+  }
 }
 </style>

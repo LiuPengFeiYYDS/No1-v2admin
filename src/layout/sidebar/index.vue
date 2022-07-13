@@ -1,20 +1,13 @@
 <template>
-  <div class="user">
-    <my-body>
-      <template slot="body">
-        <bread-crumb></bread-crumb>
-      </template>
-    </my-body>
+  <div class="aside">
+    <menu-tree></menu-tree>
   </div>
 </template>
 
 <script>
-import MyBody from '../../components/MyBody.vue'
-import BreadCrumb from '../../components/BreadCrumb.vue'
 export default {
   components: {
-    MyBody,
-    BreadCrumb
+    MenuTree: () => import('./MenuTree')
   },
   // 定义属性
   data() {
@@ -47,4 +40,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.aside {
+  height: 100%;
+  background-color: rgb(34, 45, 50)
+}
+</style>

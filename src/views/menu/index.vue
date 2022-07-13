@@ -1,21 +1,10 @@
 <template>
-  <div class="user">
-    <my-body>
-      <template slot="body">
-        <bread-crumb></bread-crumb>
-      </template>
-    </my-body>
-  </div>
+  <div class="menus">菜单</div>
 </template>
 
 <script>
-import MyBody from '../../components/MyBody.vue'
-import BreadCrumb from '../../components/BreadCrumb.vue'
 export default {
-  components: {
-    MyBody,
-    BreadCrumb
-  },
+  components: {},
   // 定义属性
   data() {
     return {}

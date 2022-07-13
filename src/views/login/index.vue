@@ -1,42 +1,44 @@
 <template>
   <div class="login">
-    <h1>智慧平台</h1>
+    <h1>智慧服务平台</h1>
     <div class="login-form">
-      <h2>欢迎登陆</h2>
-      <el-form ref="form" :rules="rules" :model="loginForm">
+      <h2>欢迎登录</h2>
+
+      <el-form
+        :model="loginForm"
+        :rules="rules"
+        ref="ruleForm"
+        class="demo-ruleForm"
+      >
         <el-form-item prop="username">
-          <el-input
-            v-model.trim="loginForm.username"
-            placeholder="请输入账号"
-            suffix-icon="el-icon-user-solid"
-          ></el-input>
+          <el-input v-model="loginForm.username" suffix-icon="el-icon-user">
+          </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
+            suffix-icon="el-icon-goods"
+            v-model="loginForm.password"
             type="password"
-            clearable
-            v-model.trim="loginForm.password"
             show-password
-            placeholder="请输入密码"
-            suffix-icon="el-icon-s-goods"
+            clearable
           ></el-input>
         </el-form-item>
         <el-form-item prop="code">
-          <div class="verify">
+          <div class="inp_w">
             <el-input
-              v-model.trim="loginForm.code"
+              v-model="loginForm.code"
               placeholder="请输入验证码"
             ></el-input>
-            <el-image @click="verification" :src="codeImageUrl" />
+            <img @click.stop="captcha" :src="codeImgUrl" />
           </div>
         </el-form-item>
         <el-form-item>
           <el-button
-            class="login-button"
-            :loading="loadingStatus"
             type="danger"
-            @click="add"
-            >{{ loadingStatus ? '登录中...' : '立即登录' }}</el-button
+            style="width: 100%"
+            @click="handelLogin"
+            :loading="showLoding"
+            >立即登录</el-button
           >
         </el-form-item>
       </el-form>
@@ -45,118 +47,121 @@
 </template>
 
 <script>
-import { getCaptcha } from '../../api/user.js'
-import rules from './rules'
-import { mapActions } from 'vuex'
+import { getCaptcha } from '../../api/user'
 export default {
-  name: 'index',
+  components: {},
+  // 定义属性
   data() {
     return {
-      // 验证码路径
-      codeImageUrl: '',
-      // 登录参数
       loginForm: {
-        username: '',
-        password: '',
+        username: 'duck',
+        password: 'admin888',
         code: '',
         token: ''
       },
-      // 设置效验
-      rules,
-      // 设置loading
-      loadingStatus: false
+      rules: {
+        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+      },
+      codeImgUrl: '',
+      showLoding: false
     }
   },
+  // 计算属性，会监听依赖属性值随之变化
+  computed: {},
+  // 监控data中的数据变化
+  watch: {},
+  // 方法集合
   methods: {
     /**
-     * 调用接口获取验证码
+     * 验证码
      */
-    async handleGetCaptcha() {
-      const res = await getCaptcha()
-      // console.log(res)
-      this.codeImageUrl = res.captchaImg
-      this.loginForm.token = res.token
+    async captcha() {
+      const { captchaImg, token } = await getCaptcha()
+      this.codeImgUrl = captchaImg
+      this.loginForm.token = token
     },
-    // 刷新验证码
-    verification() {
-      this.codeImageUrl = ''
-      this.handleGetCaptcha()
-    },
-    // 登陆验证
-    add() {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.handleSubmitLogin()
-        }
-      })
-    },
-    async handleSubmitLogin() {
+    async handelLogin() {
       try {
-        const token = await this.login(this.loginForm)
-        if (!token) return
-        this.$notify({ title: '提示', message: '登录成功', type: 'success' })
-        this.loadingStatus = true
-        await this.$router.push('/')
-      } catch (e) {
-        console.log(e)
+        this.showLoding = true
+        const res = await this.$store.dispatch(
+          'user/handleLogin',
+          this.loginForm
+        )
+        if (!res) return
+        this.$router.push('/')
+        this.$notify({
+          title: '提示',
+          message: '登陆成功',
+          type: 'success'
+        })
+      } catch (error) {
+        console.log(error)
       } finally {
-        this.loadingStatus = false
+        this.showLoding = false
+        this.captcha()
+        this.loginForm.code = ''
       }
-    },
-    /**
-     * vuex登录
-     */
-    ...mapActions({
-      login: 'user/login'
-    })
+    }
   },
-
+  // 生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    this.handleGetCaptcha()
+    this.captcha()
   },
+  // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
-  components: {},
-  computed: {},
-  watch: {}
+  // 生命周期 - 创建之前
+  beforeCreate() {},
+  // 生命周期 - 挂载之前
+  beforeMount() {},
+  // 生命周期 - 更新之前
+  beforeUpdate() {},
+  // 生命周期 - 更新之后
+  updated() {},
+  // 生命周期 - 销毁之前
+  beforeDestroy() {},
+  // 生命周期 - 销毁完成
+  destroyed() {},
+  // 如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}
 }
 </script>
 
 <style lang="scss" scoped>
 .login {
-  height: 100vh;
-  background-image: url(https://img1.baidu.com/it/u=3660224759,175068391&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800);
-  background-size: 100% 100%;
+  height: 100%;
+  background: url(https://img1.baidu.com/it/u=3660224759,175068391&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1657818000&t=268c5a51371d8c28312f1f4914eff542)
+    no-repeat;
+  background-size: 100%;
   overflow: hidden;
-}
-h1 {
-  text-align: center;
-  font-size: 30px;
-  color: #fff;
-  margin: 20px;
-}
-h2 {
-  color: #fff;
-  font-size: 30px;
-  margin-bottom: 30px;
-}
-.login-form {
-  margin: 10% auto 13%;
-  width: 20%;
-}
-.verify {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-.el-image {
-  width: 200px;
-  height: 40px;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-.login-button {
-  width: 100%;
-  border-radius: 5px;
+  h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-top: 50px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+  }
+  .login-form {
+    margin: 10% auto 13%;
+    width: 20%;
+    h2 {
+      color: #fff;
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+  }
+  .inp_w {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      width: 100px;
+      height: 40px;
+      border-radius: 5px;
+      margin-left: 20px;
+    }
+  }
 }
 </style>

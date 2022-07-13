@@ -1,45 +1,37 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import home from './modules/home'
+import user from './modules/user'
+import role from './modules/role'
+import menu from './modules/menu'
+import layout from '../layout'
 Vue.use(VueRouter)
 
-const routes = [
+export const publicRoutes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/login')
+    component: () => import(/* webpackChunkName: "about" */ '../views/login')
   },
   {
     path: '/',
     name: 'layout',
-    component: () => import('../layout'),
+    component: layout,
+    redirect: '/sys/home',
     children: [
       {
-        path: '/sys/users',
-        name: 'users',
-        component: () => import('../views/users')
-      },
-      {
-        path: '/sys/roles',
-        name: 'roles',
-        component: () => import('../views/roles')
-      },
-      {
-        path: '/sys/menus',
-        name: 'menus',
-        component: () => import('../views/menus')
-      },
-      {
-        path: '/home',
-        name: 'home',
-        component: () => import('../views/home')
+        path: '404',
+        name: '404',
+        component: () => import('../views/404')
       }
     ]
   }
 ]
 
+export const privateRoutes = [user, role, menu, home]
+
 const router = new VueRouter({
-  routes
+  routes: publicRoutes
 })
 
 export default router
