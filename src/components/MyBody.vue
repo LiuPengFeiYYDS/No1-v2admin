@@ -42,8 +42,8 @@ export default {
 .my_body {
   border-radius: 10px;
   background: #fff;
-  &:hover {
-    box-shadow: 5px 5px 5px 3px rgba($color: #000000, $alpha: 0.5);
-  }
+  // &:hover {
+  //   box-shadow: 5px 5px 5px 3px rgba($color: #000000, $alpha: 0.5);
+  // }
 }
 </style>

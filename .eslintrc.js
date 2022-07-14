@@ -15,7 +15,9 @@ module.exports = {
     'vue/no-deprecated-slot-attribute': 'off',
     'vue/no-deprecated-v-on-native-modifier': 'off',
     'vue/no-deprecated-slot-scope-attribute': 'off',
-    'vue/no-deprecated-destroyed-lifecycle': 'off'
+    'vue/no-deprecated-destroyed-lifecycle': 'off',
+    'vue/no-mutating-props': 'off',
+    'vue/no-useless-template-attributes': 'off'
   },
   overrides: [
     {
